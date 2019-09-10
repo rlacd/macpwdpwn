@@ -13,7 +13,7 @@ clean:
 	$(shell rm -rf obj)
 
 mpwdpwn: check strutils.o mpwdpwn.o
-	$(CC) obj/mpwdpwn.o $(CCPARAMS) -o mpwdpwn
+	$(CC) obj/strutils.o obj/mpwdpwn.o $(CCPARAMS) -o mpwdpwn
 
 mpwdpwn.o: src/mpwdpwn.h
 	$(CC) -c src/mpwdpwn.c -o obj/mpwdpwn.o
