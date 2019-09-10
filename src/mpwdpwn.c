@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "%s", "Error: /Volumes directory does not exist, is this a Mac or is the file system corrupt?\n");
         return 1;
     }
-    fprintf(stdout, "Please enter the name of a system volume.\nAvailable Volumes are:\n");
+    fprintf(stdout, "Please enter the name of a system volume from which you want to unlock an account from.\nAvailable Volumes are:\n");
     while((dEntry = readdir(vDir)) != NULL) {
         if(strncmp(dEntry->d_name, "..", strlen(dEntry->d_name)) == 0) continue;
         else if(strncmp(dEntry->d_name, ".", strlen(dEntry->d_name)) == 0) continue;
@@ -32,6 +32,9 @@ int main(int argc, char* argv[]) {
     }
     fprintf(stdout, "\n");
     closedir(vDir);
-
+    fprintf(stdout, "%s ", ">");
+    char volumeName[256];
+    fscanf(stdin, "%s", volumeName);
+    
     return 0;
 }
