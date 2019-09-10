@@ -34,6 +34,10 @@ From there, follow the instructions displayed by the tool.
 
 Simply open an issue on GitHub.
 
+## Planned Features
+
+* Option to reverse unlock from backup.
+
 ## License
 
 Licensed under GNU GPLv3.
