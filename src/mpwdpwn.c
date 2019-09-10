@@ -24,4 +24,11 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "%s", "Error: /Volumes directory does not exist, is this a Mac or is the file system corrupt?\n");
         return 1;
     }
+    fprintf("Please enter the name of a system volume.\nAvailable Volumes are:\n");
+    while((dEntry = readdir(vDir)) != NULL)
+        fprintf(stdout, "  %s\n", dEntry->d_name);
+    fprintf(stdout, "\n");
+    closedir(vDir);
+    
+    return 0;
 }
