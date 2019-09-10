@@ -5,7 +5,14 @@ CCPARAMS=-Wall
 
 default: mpwdpwn
 
-mpwdpwn: mpwdpwn.o
+check:
+	$(shell [ ! -e obj ] && mkdir obj)
+
+clean:
+	$(shell echo Cleaning up...)
+	$(shell rm -rf obj)
+
+mpwdpwn: check mpwdpwn.o
 	$(CC) obj/mpwdpwn.o $(CCPARAMS) -o mpwdpwn
 
 mpwdpwn.o:
