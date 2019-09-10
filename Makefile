@@ -15,5 +15,5 @@ clean:
 mpwdpwn: check mpwdpwn.o
 	$(CC) obj/mpwdpwn.o $(CCPARAMS) -o mpwdpwn
 
-mpwdpwn.o:
+mpwdpwn.o: src/mpwdpwn.h
 	$(CC) -c src/mpwdpwn.c -o obj/mpwdpwn.o

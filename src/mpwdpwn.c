@@ -10,6 +10,7 @@ Copyright (C) techspider 2019. All rights reserved.
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
+#include "mpwdpwn.h"
 
 int main(int argc, char* argv[]) {
     fprintf(stdout, "%s", "mpwdpwn version 1.0. Copyright (C) mr_chainman (techspider) 2019.\n\n");
@@ -33,8 +34,8 @@ int main(int argc, char* argv[]) {
     fprintf(stdout, "\n");
     closedir(vDir);
     fprintf(stdout, "%s ", ">");
-    char volumeName[256];
-    fscanf(stdin, "%s", volumeName);
-    
+    PTARGET * target = malloc(sizeof(PTARGET));
+    fscanf(stdin, "%s", target->volumeName);
+
     return 0;
 }
