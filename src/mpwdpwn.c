@@ -78,7 +78,6 @@ int main(int argc, char* argv[]) {
     strcpy(userDirPath, target->volumePath);
     strncat(userDirPath, dbPathInFS, strlen(dbPathInFS) + strlen(userDirPath));
     fprintf(stdout, "Checking %s for user plists...\n", userDirPath);
-    fprintf(stdout, "\033[0;33mEnter the name of the user account you would like to unlock:\033[0m\nAvailable Users:\n");
     struct dirent * pluEntry;
     DIR * pluDir = opendir(userDirPath);
 
@@ -86,6 +85,8 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "%s", "\033[0;31mError: User database is corrupt, inaccessible, or this is not a valid volume.\033[0m\n");
         return 1;
     }
+
+    fprintf(stdout, "\033[0;33mEnter the name of the user account you would like to unlock:\033[0m\nAvailable Users:\n");
 
     while((pluEntry = readdir(pluDir)) != NULL) {
         if(strncmp(pluEntry->d_name, "..", strlen(pluEntry->d_name)) == 0) continue;
