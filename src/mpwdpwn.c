@@ -11,6 +11,7 @@ Copyright (C) techspider 2019. All rights reserved.
 #include <unistd.h>
 #include <dirent.h>
 #include "mpwdpwn.h"
+#include "strutils.h"
 
 int main(int argc, char* argv[]) {
     fprintf(stdout, "%s", "mpwdpwn version 1.0. Copyright (C) mr_chainman (techspider) 2019.\n\n");
@@ -33,9 +34,22 @@ int main(int argc, char* argv[]) {
     }
     fprintf(stdout, "\n");
     closedir(vDir);
-    fprintf(stdout, "%s ", ">");
     PTARGET * target = malloc(sizeof(PTARGET));
-    fscanf(stdin, "%s", target->volumeName);
+    int validVolumeDetected = -1;
+    while(validVolumeDetected != 0) {
+        fprintf(stdout, "%s ", ">");
+        fscanf(stdin, "%s", target->volumeName);
+        
+        char fullPath[264];
+        strcpy(fullPath, "/Volumes/");
+        strncat(fullPath, target->volumeName);
+        fprintf(stdout, "Selecting volume %s...", fullPath);
 
+        if(string_empty(target->volumeName) == 0) {
+            fprintf(stdout, "%s", "Error: Volume name cannot be empty!");
+            continue;
+        } else if()
+    }    
+    
     return 0;
 }
