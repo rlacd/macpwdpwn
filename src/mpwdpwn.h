@@ -11,6 +11,7 @@ Copyright (C) techspider 2019. All rights reserved.
 // A structure defining a target for account unlock
 typedef struct PTARGET {
     char volumeName[256];
+    char volumePath[256];
     char userName[128];
 } PTARGET;
 

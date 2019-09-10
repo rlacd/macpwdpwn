@@ -10,6 +10,7 @@ Copyright (C) techspider 2019. All rights reserved.
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h>
+#include "util.h"
 #include "mpwdpwn.h"
 #include "strutils.h"
 
@@ -38,17 +39,21 @@ int main(int argc, char* argv[]) {
     int validVolumeDetected = -1;
     while(validVolumeDetected != 0) {
         fprintf(stdout, "%s ", ">");
-        fscanf(stdin, "%s", target->volumeName);
-        
-        char fullPath[264];
-        strcpy(fullPath, "/Volumes/");
-        strncat(fullPath, target->volumeName, 9 + strlen(target->volumeName));
-        fprintf(stdout, "Selecting volume %s...", fullPath);
-
+        fgets(target->volumeName, sizeof(target->volumeName), stdin);
+        strtok(target->volumeName, "\n"); // Remove trailing new line
         if(string_empty(target->volumeName) == 0) {
-            fprintf(stdout, "%s", "Error: Volume name cannot be empty!");
+            fprintf(stderr, "%s", "Error: Volume name cannot be empty!\n");
             continue;
         }
+        char fullPath[256];
+        strcpy(fullPath, "/Volumes/");
+        strncat(fullPath, target->volumeName, 9 + strlen(target->volumeName));
+        fprintf(stdout, "Selecting volume %s...\n", fullPath);
+        if(dir_exists(fullPath) != 0) {
+            fprintf(stderr, "%s", "Error: Volume does not exist!\n");
+            continue;
+        }
+        validVolumeDetected = 0;
     }    
     
     return 0;

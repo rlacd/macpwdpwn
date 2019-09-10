@@ -9,7 +9,7 @@ Copyright (C) techspider 2019. All rights reserved.
 
 int string_empty(const char* input) {
     for(int i=0; input[i]!='\0'; i++)
-        if((input[i] != ' ') || (input[i] != '\n') || (input[i] != '\r'))
+        if((input[i] != ' ') && (input[i] != '\n') && (input[i] != '\r') && (input[i] != '\0'))
             return -1;
     return 0;
 }
