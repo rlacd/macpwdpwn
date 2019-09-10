@@ -13,8 +13,10 @@ Copyright (C) techspider 2019. All rights reserved.
 #include "util.h"
 #include "mpwdpwn.h"
 #include "strutils.h"
+#include "res.h"
 
 int main(int argc, char* argv[]) {
+    fprintf(stdout, "%s", APP_LOGO);
     fprintf(stdout, "%s", "mpwdpwn version 1.0. Copyright (C) mr_chainman (techspider) 2019.\n\n");
     if(geteuid() != 0) {
         fprintf(stderr, "%s", "Error: Missing permissions, rerun as root.\n");
