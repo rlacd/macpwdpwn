@@ -26,8 +26,8 @@ int main(int argc, char* argv[]) {
     }
     fprintf(stdout, "Please enter the name of a system volume.\nAvailable Volumes are:\n");
     while((dEntry = readdir(vDir)) != NULL) {
-        if(strncmp(dEntry->d_name, "..", strlen(dEntry->d_name))) continue;
-        else if(strncmp(dEntry->d_name, ".", strlen(dEntry->d_name))) continue;
+        if(strncmp(dEntry->d_name, "..", strlen(dEntry->d_name)) == 0) continue;
+        else if(strncmp(dEntry->d_name, ".", strlen(dEntry->d_name)) == 0) continue;
         else fprintf(stdout, "  %s\n", dEntry->d_name);
     }
     fprintf(stdout, "\n");
