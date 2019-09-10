@@ -56,7 +56,6 @@ int main(int argc, char* argv[]) {
             continue;
         }
         validVolumeDetected = 0;
-    }    
-    
+    }
     return 0;
 }
