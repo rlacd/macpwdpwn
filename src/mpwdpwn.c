@@ -18,13 +18,13 @@ Copyright (C) techspider 2019. All rights reserved.
 int main(int argc, char* argv[]) {
     //Display copyrights and APP_LOGO
 
-    fprintf(stdout, "%s", APP_LOGO);
-    fprintf(stdout, "%s", "mpwdpwn version 1.0. Copyright (C) mr_chainman (techspider) 2019.\n\n");
+    fprintf(stdout, "\033[0;35m%s\033[0m", APP_LOGO);
+    fprintf(stdout, "%s", "\033[1;36mmpwdpwn version 1.0. Copyright (C) mr_chainman (techspider) 2019.\033[0m\n\n");
 
     //Check if root access is available
 
     if(geteuid() != 0) {
-        fprintf(stderr, "%s", "Error: Missing permissions, rerun as root.\n");
+        fprintf(stderr, "%s", "\033[0;31mError: Missing permissions, rerun as root.\033[0m\n");
         return 1;
     }
 
@@ -34,12 +34,12 @@ int main(int argc, char* argv[]) {
     struct dirent *dEntry;
     DIR *vDir = opendir("/Volumes");
     if(vDir == NULL) {
-        fprintf(stderr, "%s", "Error: /Volumes directory does not exist, is this a Mac or is the file system corrupt?\n");
+        fprintf(stderr, "%s", "\033[0;31mError: /Volumes directory does not exist, is this a Mac or is the file system corrupt?\033[0m\n");
         return 1;
     }
 
     //Prompt user for volume name
-    fprintf(stdout, "Please enter the name of a system volume from which you want to unlock an account from.\nAvailable Volumes are:\n");
+    fprintf(stdout, "\033[0;33mPlease enter the name of a system volume from which you want to unlock an account from.\033[0m\nAvailable Volumes are:\n");
     while((dEntry = readdir(vDir)) != NULL) {
         if(strncmp(dEntry->d_name, "..", strlen(dEntry->d_name)) == 0) continue;
         else if(strncmp(dEntry->d_name, ".", strlen(dEntry->d_name)) == 0) continue;
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
         fgets(target->volumeName, sizeof(target->volumeName), stdin);
         strtok(target->volumeName, "\n"); // Remove trailing new line
         if(string_empty(target->volumeName) == 0) {
-            fprintf(stderr, "%s", "Error: Volume name cannot be empty!\n");
+            fprintf(stderr, "%s", "\033[0;31mError: Volume name cannot be empty!\033[0m\n");
             continue;
         }
         char fullPath[256];
@@ -64,11 +64,13 @@ int main(int argc, char* argv[]) {
         fprintf(stdout, "Selecting volume %s...\n", fullPath);
         strcpy(target->volumePath, fullPath);
         if(dir_exists(fullPath) != 0) {
-            fprintf(stderr, "%s", "Error: Volume does not exist!\n");
+            fprintf(stderr, "%s", "\033[0;31mError: Volume does not exist!\033[0m\n");
             continue;
         }
         validVolumeDetected = 0;
     }
+
+    //Go though all user plists in database and prompt user for username
 
     char userDirPath[256];
     char dbPathInFS[256];
@@ -76,12 +78,12 @@ int main(int argc, char* argv[]) {
     strcpy(userDirPath, target->volumePath);
     strncat(userDirPath, dbPathInFS, strlen(dbPathInFS) + strlen(userDirPath));
     fprintf(stdout, "Checking %s for user plists...\n", userDirPath);
-    fprintf(stdout, "Enter the name of the user account you would like to unlock:\nAvailable Users:\n");
+    fprintf(stdout, "\033[0;33mEnter the name of the user account you would like to unlock:\033[0m\nAvailable Users:\n");
     struct dirent * pluEntry;
     DIR * pluDir = opendir(userDirPath);
-    
+
     if(pluDir == NULL) {
-        fprintf(stderr, "%s", "Error: User database is corrupt or this is not a valid volume.\n");
+        fprintf(stderr, "%s", "\033[0;31mError: User database is corrupt or this is not a valid volume.\033[0m\n");
         return 1;
     }
 
@@ -100,5 +102,36 @@ int main(int argc, char* argv[]) {
     fprintf(stdout, "\n");
     closedir(pluDir);
 
+    // Prompt the user for a user name now
+
+    int validUserSelected = -1;
+    while(validUserSelected != 0) {
+        fprintf(stdout, "%s ", ">");
+        fgets(target->userName, sizeof(target->userName), stdin);
+        strtok(target->userName, "\n"); // Remove trailing new line
+        if(string_empty(target->userName) == 0) {
+            fprintf(stderr, "%s", "\033[0;31mError: User name cannot be empty!\033[0m\n");
+            continue;
+        }
+        char userPlistPath[256];
+        strcpy(userPlistPath, userDirPath);
+        strncat(userPlistPath, "/", 1);
+        char userPlistFileName[128];
+        strcpy(userPlistFileName, target->userName);
+        strncat(userPlistFileName, ".plist", strlen(target->userName) + 6);
+        strncat(userPlistPath, userPlistFileName, strlen(userPlistPath) + strlen(userPlistFileName));
+        if(access(userPlistPath, F_OK) == -1) {
+            fprintf(stderr, "\033[0;31mError: User \"%s\" does not exist!\033[0m\n", target->userName);
+            continue;
+        }
+        fprintf(stdout, "Found plist %s\n", userPlistPath);
+        validUserSelected = 0;
+    }
+
+    // Ask user to confirm changes
+
+    fprintf(stdout, "\n\033[0;33mPlease review the following to check if it is correct.\033[0m\n\033[0;31m>> WARNING: This is a potentially destructive action if not performed correctly! <<\033[0m\n[Summary]\n");
+    fprintf(stdout, "  Target Volume: %s\n  Target User: %s\n\n", target->volumeName, target->userName);
+    fprintf(stdout, "Are you sure you want to continue? [y/N]\n");
     return 0;
 }

@@ -12,6 +12,7 @@ Copyright (C) techspider 2019. All rights reserved.
 typedef struct PTARGET {
     char volumeName[256];
     char volumePath[256];
+    char userName[128];
     char userPlist[256];
 } PTARGET;
 
