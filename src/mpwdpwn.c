@@ -42,8 +42,8 @@ int main(int argc, char* argv[]) {
         
         char fullPath[264];
         strcpy(fullPath, "/Volumes/");
-        strncat(fullPath, target->volumeName);
-        fprintf(stdout, "Selecting volume %s...", fullPath, 9 + strlen(target->volumeName));
+        strncat(fullPath, target->volumeName, 9 + strlen(target->volumeName));
+        fprintf(stdout, "Selecting volume %s...", fullPath);
 
         if(string_empty(target->volumeName) == 0) {
             fprintf(stdout, "%s", "Error: Volume name cannot be empty!");
