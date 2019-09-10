@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
         if(string_empty(target->volumeName) == 0) {
             fprintf(stdout, "%s", "Error: Volume name cannot be empty!");
             continue;
-        } else if()
+        }
     }    
     
     return 0;
