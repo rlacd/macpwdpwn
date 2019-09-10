@@ -83,7 +83,7 @@ int main(int argc, char* argv[]) {
     DIR * pluDir = opendir(userDirPath);
 
     if(pluDir == NULL) {
-        fprintf(stderr, "%s", "\033[0;31mError: User database is corrupt or this is not a valid volume.\033[0m\n");
+        fprintf(stderr, "%s", "\033[0;31mError: User database is corrupt, inaccessible, or this is not a valid volume.\033[0m\n");
         return 1;
     }
 
