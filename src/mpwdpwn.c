@@ -16,12 +16,20 @@ Copyright (C) techspider 2019. All rights reserved.
 #include "res.h"
 
 int main(int argc, char* argv[]) {
+    //Display copyrights and APP_LOGO
+
     fprintf(stdout, "%s", APP_LOGO);
     fprintf(stdout, "%s", "mpwdpwn version 1.0. Copyright (C) mr_chainman (techspider) 2019.\n\n");
+
+    //Check if root access is available
+
     if(geteuid() != 0) {
         fprintf(stderr, "%s", "Error: Missing permissions, rerun as root.\n");
         return 1;
     }
+
+    //Look through /Volumes for volumes to use
+
     fprintf(stdout, "%s", "Scanning volumes...\n");
     struct dirent *dEntry;
     DIR *vDir = opendir("/Volumes");
@@ -29,17 +37,20 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "%s", "Error: /Volumes directory does not exist, is this a Mac or is the file system corrupt?\n");
         return 1;
     }
+
+    //Prompt user for volume name
     fprintf(stdout, "Please enter the name of a system volume from which you want to unlock an account from.\nAvailable Volumes are:\n");
     while((dEntry = readdir(vDir)) != NULL) {
         if(strncmp(dEntry->d_name, "..", strlen(dEntry->d_name)) == 0) continue;
         else if(strncmp(dEntry->d_name, ".", strlen(dEntry->d_name)) == 0) continue;
         else fprintf(stdout, "  %s\n", dEntry->d_name);
     }
+
     fprintf(stdout, "\n");
     closedir(vDir);
     PTARGET * target = malloc(sizeof(PTARGET));
     int validVolumeDetected = -1;
-    while(validVolumeDetected != 0) {
+    while(validVolumeDetected != 0) { //Perform checks whether specified volume is valid
         fprintf(stdout, "%s ", ">");
         fgets(target->volumeName, sizeof(target->volumeName), stdin);
         strtok(target->volumeName, "\n"); // Remove trailing new line
@@ -58,6 +69,7 @@ int main(int argc, char* argv[]) {
         }
         validVolumeDetected = 0;
     }
+
     char userDirPath[256];
     char dbPathInFS[256];
     strcpy(dbPathInFS, "/var/db/dslocal/nodes/Default/users");
@@ -67,10 +79,12 @@ int main(int argc, char* argv[]) {
     fprintf(stdout, "Enter the name of the user account you would like to unlock:\nAvailable Users:\n");
     struct dirent * pluEntry;
     DIR * pluDir = opendir(userDirPath);
+    
     if(pluDir == NULL) {
         fprintf(stderr, "%s", "Error: User database is corrupt or this is not a valid volume.\n");
         return 1;
     }
+
     while((pluEntry = readdir(pluDir)) != NULL) {
         if(strncmp(pluEntry->d_name, "..", strlen(pluEntry->d_name)) == 0) continue;
         else if(strncmp(pluEntry->d_name, ".", strlen(pluEntry->d_name)) == 0) continue;
@@ -82,8 +96,9 @@ int main(int argc, char* argv[]) {
             fprintf(stdout, "  %s\n", username);
         }
     }
+
     fprintf(stdout, "\n");
     closedir(pluDir);
-    
+
     return 0;
 }
