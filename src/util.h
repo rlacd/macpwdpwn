@@ -10,5 +10,6 @@ Copyright (C) techspider 2019. All rights reserved.
 
 int dir_exists(const char* path);
 int prompt_confirm(char defChar);
+int fcopy_bin(const char* src, const char* dest);
 
 #endif

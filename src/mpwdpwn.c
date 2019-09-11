@@ -126,6 +126,7 @@ int main(int argc, char* argv[]) { //TODO add command line arguments
             continue;
         }
         fprintf(stdout, "Found plist %s\n", userPlistPath);
+        strcpy(target->userPlist, userPlistPath);
         validUserSelected = 0;
     }
 
@@ -138,6 +139,18 @@ int main(int argc, char* argv[]) { //TODO add command line arguments
         fprintf(stderr, "\033[0;31mUser abort operation, exiting...\033[0m\n");
         return 1;
     }
+
+    //Backup user file just in case something goes wrong - (if at any point the program fails, it will restore from backup)
+
+    fprintf(stdout, "\nBacking up user file...\n");
+    char backupPath[256];
+    strcpy(backupPath, target->volumePath);
+    strncat(backupPath, "/UserBackup.plist", strlen(target->volumePath) + strlen(backupPath));
+    if(fcopy_bin(target->userPlist, backupPath) != 0)
+    {
+        fprintf(stderr, "\033[0;31mError: Failed to create file \"%s\"\033[0m\n", backupPath);
+        return 1;
+    } else fprintf(stdout, "Created user plist backup at %s\n", backupPath);
     
     return 0;
 }

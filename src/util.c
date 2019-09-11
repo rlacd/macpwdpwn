@@ -10,6 +10,8 @@ Copyright (C) techspider 2019. All rights reserved.
 #include <stdio.h>
 #include <stdlib.h>
 
+#define FCOPY_BIN_BUFSZ 2048
+
 int dir_exists(const char* path) {
     struct stat st;
     if(stat(path,&st) == 0 && S_ISDIR(st.st_mode))
@@ -31,5 +33,20 @@ int prompt_confirm(char defChar) {
             continue;
         }
     } while((response != 'Y') || (response != 'y'));
+    return 0;
+}
+
+int fcopy_bin(const char* src, const char* dest) {
+    char buff[FCOPY_BIN_BUFSZ];
+    FILE *in, *out;
+    size_t n;
+    in = fopen(src, "rb");
+    if(in == NULL) return -1;
+    out = fopen(dest, "wb");
+    if(out == NULL) return -1;
+    while ((n=fread(buff,1,BUFSIZ,in)) != 0)
+        fwrite(buff, 1, n, out);
+    fclose(in);
+    fclose(out);
     return 0;
 }
