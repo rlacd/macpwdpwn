@@ -2,7 +2,7 @@
 
 Copyright (C) mr_chainman (techspider) 2019.
 
-Mac Account Unlocking Tool for Mojave and up.
+macOS Account Unlocking Tool for Mojave and up.
 
 ## Important Notice
 
@@ -14,7 +14,7 @@ The tool is currently in beta stage and is unfinished. Once again, proceed at yo
 
 ## What is it?
 
-mpwdpwn is a command line tool which will allow you to unlock password protected accounts on your local Mac machine (even T2 secured Macs).
+mpwdpwn is a command line tool which will allow you to unlock password protected accounts on your local Mac machine (even T2 secured Macs). This is very useful if you have forgotten the password to your own user account.
 
 Please note that this tool will not attempt to extract/crack user passwords.
 
