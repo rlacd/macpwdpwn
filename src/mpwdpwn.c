@@ -165,9 +165,9 @@ int main(int argc, char* argv[]) { //TODO add command line arguments
 
     fprintf(stdout, "Converting user plist into format \"%s\"...\n", PLIST_FORMAT_XML);
     if(plist_convert(tempPlistPath, PLIST_FORMAT_XML) != 0) {
-        fprintf(stderr, "\033[0;31mError: Could not convert user plist into appropriate format.\033[0m\n", tempPlistPath);
+        fprintf(stderr, "\033[0;31mError: Could not convert user plist into appropriate format.\033[0m\n");
         return 1;
     } else fprintf(stdout, "Conversion successful, opening file for read...");
-    
+
     return 0;
 }
