@@ -15,7 +15,7 @@ Copyright (C) techspider 2019. All rights reserved.
 #include "strutils.h"
 #include "res.h"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) { //TODO add command line arguments
     //Display copyrights and APP_LOGO
 
     fprintf(stdout, "\033[0;35m%s\033[0m", APP_LOGO);
@@ -138,6 +138,6 @@ int main(int argc, char* argv[]) {
         fprintf(stderr, "\033[0;31mUser abort operation, exiting...\033[0m\n");
         return 1;
     }
-
+    
     return 0;
 }
