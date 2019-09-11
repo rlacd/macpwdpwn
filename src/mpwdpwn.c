@@ -146,11 +146,28 @@ int main(int argc, char* argv[]) { //TODO add command line arguments
     char backupPath[256];
     strcpy(backupPath, target->volumePath);
     strncat(backupPath, "/UserBackup.plist", strlen(target->volumePath) + strlen(backupPath));
-    if(fcopy_bin(target->userPlist, backupPath) != 0)
-    {
+    if(fcopy_bin(target->userPlist, backupPath) != 0) {
         fprintf(stderr, "\033[0;31mError: Failed to create file \"%s\"\033[0m\n", backupPath);
         return 1;
     } else fprintf(stdout, "Created user plist backup at %s\n", backupPath);
+
+    //Create temporary copy of user plist for editing
+
+    char tempPlistPath[256];
+    strcpy(tempPlistPath, target->volumePath);
+    strncat(tempPlistPath, "/Temp.plist", strlen(target->volumePath) + strlen(tempPlistPath));
+    if(fcopy_bin(target->userPlist, tempPlistPath) != 0) {
+        fprintf(stderr, "\033[0;31mError: Failed to create file \"%s\"\033[0m\n", tempPlistPath);
+        return 1;
+    } else fprintf(stdout, "Created temporary plist for editing at %s\n", tempPlistPath);
+
+    //Convert bplist to user readable XML
+
+    fprintf(stdout, "Converting user plist into format \"%s\"...\n", PLIST_FORMAT_XML);
+    if(plist_convert(tempPlistPath, PLIST_FORMAT_XML) != 0) {
+        fprintf(stderr, "\033[0;31mError: Could not convert user plist into appropriate format.\033[0m\n", tempPlistPath);
+        return 1;
+    } else fprintf(stdout, "Conversion successful, opening file for read...");
     
     return 0;
 }

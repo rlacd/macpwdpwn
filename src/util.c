@@ -50,3 +50,9 @@ int fcopy_bin(const char* src, const char* dest) {
     fclose(out);
     return 0;
 }
+
+int plist_convert(const char* path, const char* format) {
+    char command[256];
+    sprintf(command, "plutil -convert %s \"%s\"", format, path);
+    return system(command);
+}
