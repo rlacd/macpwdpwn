@@ -204,7 +204,6 @@ int main(int argc, char* argv[]) { //TODO add command line arguments
         fprintf(stderr, "\033[0;31mError NON FATAL: Could not delete file \"%s\"! Could the file be in use?\033[0m\n", tempPlistPath);
     }
 
-    fprintf(stdout, "\n\nThe account unlocking procedure has completed successfully!\nTo log in, reboot your Mac and enter password '12345' as password.\n\nNote: Please change your password as soon as possible to avoid glitches!");
-
+    fprintf(stdout, "\n\nThe account unlocking procedure has completed successfully!\nTo log in, reboot your Mac and enter password '12345' as password for the specified account.\n\nNote: Please change your password as soon as possible to avoid glitches!\n");
     return 0;
 }
