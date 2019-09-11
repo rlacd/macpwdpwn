@@ -14,6 +14,7 @@ Copyright (C) techspider 2019. All rights reserved.
 #include "mpwdpwn.h"
 #include "strutils.h"
 #include "res.h"
+#include "plist.h"
 
 int main(int argc, char* argv[]) { //TODO add command line arguments
     //Display copyrights and APP_LOGO
@@ -145,7 +146,7 @@ int main(int argc, char* argv[]) { //TODO add command line arguments
     fprintf(stdout, "\nBacking up user file...\n");
     char backupPath[256];
     strcpy(backupPath, target->volumePath);
-    strncat(backupPath, "/UserBackup.plist", strlen(target->volumePath) + strlen(backupPath));
+    strncat(backupPath, "/var/mpwd_backup.plist", strlen(target->volumePath) + strlen(backupPath));
     if(fcopy_bin(target->userPlist, backupPath) != 0) {
         fprintf(stderr, "\033[0;31mError: Failed to create file \"%s\"\033[0m\n", backupPath);
         return 1;
@@ -167,7 +168,23 @@ int main(int argc, char* argv[]) { //TODO add command line arguments
     if(plist_convert(tempPlistPath, PLIST_FORMAT_XML) != 0) {
         fprintf(stderr, "\033[0;31mError: Could not convert user plist into appropriate format.\033[0m\n");
         return 1;
-    } else fprintf(stdout, "Conversion successful, opening file for read...");
+    } else fprintf(stdout, "Conversion successful!\n");
+
+    //Read the plist and insert the new ShadowHashData
+
+    fprintf(stdout, "Modifying ShadowHashData...\n");
+    if(plist_replace_xml(tempPlistPath, "ShadowHashData", "<array></array>") != 0) {
+        fprintf(stderr, "\033[0;31mError: Could not replace ShadowHashData with empty array!\033[0m\n");
+        return 1;
+    }
+
+    if(plist_insert(tempPlistPath, "ShadowHashData.0", PLIST_DTYPE_DATAB64, SHADOW_HASH_DATA_UNLOCK) != 0) {
+        fprintf(stderr, "\033[0;31mError: Failed to update ShadowHashData with new password!\033[0m\n");
+        return 1;
+    }
+    fprintf(stdout, "Successfully injected new password into ShadowHashData!\n");
+
+    //ShadowHashData has been modified, now copy back the plist and let the user know their new password is 12345
 
     return 0;
 }

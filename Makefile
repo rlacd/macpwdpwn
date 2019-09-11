@@ -12,8 +12,8 @@ clean:
 	$(shell echo Cleaning up...)
 	$(shell rm -rf obj)
 
-mpwdpwn: check util.o strutils.o mpwdpwn.o
-	$(CC) obj/util.o obj/strutils.o obj/mpwdpwn.o $(CCPARAMS) -o mpwdpwn
+mpwdpwn: check plist.o util.o strutils.o mpwdpwn.o
+	$(CC) obj/plist.o obj/util.o obj/strutils.o obj/mpwdpwn.o $(CCPARAMS) -o mpwdpwn
 
 mpwdpwn.o: src/mpwdpwn.h
 	$(CC) -c src/mpwdpwn.c -o obj/mpwdpwn.o
@@ -23,3 +23,6 @@ strutils.o: src/strutils.h
 
 util.o: src/util.h
 	$(CC) -c src/util.c -o obj/util.o
+
+plist.o: src/plist.h
+	$(CC) -c src/plist.c -o obj/plist.o
