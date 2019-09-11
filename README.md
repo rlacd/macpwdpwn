@@ -37,6 +37,7 @@ Simply open an issue on GitHub.
 ## Planned Features
 
 * Option to reverse unlock from backup.
+* General code fixes
 
 ## License
 
