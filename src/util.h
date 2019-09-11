@@ -9,5 +9,6 @@ Copyright (C) techspider 2019. All rights reserved.
 #define __UTIL_H
 
 int dir_exists(const char* path);
+int prompt_confirm(char defChar);
 
 #endif

@@ -134,6 +134,10 @@ int main(int argc, char* argv[]) {
     fprintf(stdout, "\n\033[0;33mPlease review the following to check if it is correct.\033[0m\n\033[0;31m>> WARNING: This is a potentially destructive action if not performed correctly! <<\033[0m\n[Summary]\n");
     fprintf(stdout, "  Target Volume: %s\n  Target User: %s\n\n", target->volumeName, target->userName);
     fprintf(stdout, "Are you sure you want to continue? [y/N]: ");
+    if(prompt_confirm('N') == -1) {
+        fprintf(stderr, "\033[0;31mUser abort operation, exiting...\033[0m\n");
+        return 1;
+    }
 
     return 0;
 }
