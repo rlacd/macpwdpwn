@@ -185,6 +185,26 @@ int main(int argc, char* argv[]) { //TODO add command line arguments
     fprintf(stdout, "Successfully injected new password into ShadowHashData!\n");
 
     //ShadowHashData has been modified, now copy back the plist and let the user know their new password is 12345
+    
+    fprintf(stdout, "Reformatting plist to binary...\n");
+    if(plist_convert(tempPlistPath, PLIST_FORMAT_BINARY) != 0) {
+        fprintf(stderr, "\033[0;31mError: Could not convert user plist into appropriate format.\033[0m\n");
+        return 1;
+    } else fprintf(stdout, "Plist succesfully converted to binary!\n");
+
+    fprintf(stdout, "Copying back user plist...\n");
+    if(fcopy_bin(tempPlistPath, target->userPlist) != 0) {
+        fprintf(stderr, "\033[0;31mError: Failed to create file \"%s\"\033[0m\n", tempPlistPath);
+        return 1;
+    } else fprintf(stdout, "Plist successfully copied back! A backup of the old plist is kept at VolumeRoot/var/mpwd_backup.plist\n", tempPlistPath);
+
+    fprintf(stdout, "Deleting temporary file...\n");
+    int status = remove(tempPlistPath);
+    if(status != 0) {
+        fprintf(stderr, "\033[0;31mError NON FATAL: Could not delete file \"%s\"! Could the file be in use?\033[0m\n", tempPlistPath);
+    }
+
+    fprintf(stdout, "\n\nThe account unlocking procedure has completed successfully!\nTo log in, reboot your Mac and enter password '12345' as password.\n\nNote: Please change your password as soon as possible to avoid glitches!");
 
     return 0;
 }
