@@ -22,7 +22,7 @@ int plist_replace_xml(const char* path, const char* k, const char* xmlData) {
 }
 
 int plist_insert(const char* path, const char* k, const char* type, const char* data) {
-    char command[256];
+    char command[1536];
     sprintf(command, "plutil -insert %s -%s \"%s\" \"%s\"", k, type, data, path);
     return system(command);
 }
