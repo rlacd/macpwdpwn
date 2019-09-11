@@ -196,7 +196,7 @@ int main(int argc, char* argv[]) { //TODO add command line arguments
     if(fcopy_bin(tempPlistPath, target->userPlist) != 0) {
         fprintf(stderr, "\033[0;31mError: Failed to create file \"%s\"\033[0m\n", tempPlistPath);
         return 1;
-    } else fprintf(stdout, "Plist successfully copied back! A backup of the old plist is kept at VolumeRoot/var/mpwd_backup.plist\n", tempPlistPath);
+    } else fprintf(stdout, "Plist successfully copied back! A backup of the old plist is kept at VolumeRoot/var/mpwd_backup.plist\n");
 
     fprintf(stdout, "Deleting temporary file...\n");
     int status = remove(tempPlistPath);
