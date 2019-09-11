@@ -2,7 +2,7 @@
 
 Copyright (C) mr_chainman (techspider) 2019.
 
-Mac Account Unlocking Toolkit for Mojave and up.
+Mac Account Unlocking Tool for Mojave and up.
 
 ## Important Notice
 
@@ -25,6 +25,10 @@ To use the tool, download the latest binary release (from the Releases tab) or c
 Once the binary has been copied, reboot your mac into recovery mode by pressing `COMMAND+R` on startup. Once booted, open Terminal and run the program from the flash drive. If the program does not run, use chmod to fix permissions or copy it to a temporary folder on your hard disk.
 
 From there, follow the instructions displayed by the tool.
+
+## Tested Macs
+
+* MacBook Pro (13-inch, 2017, 2 TB3 ports) with Mojave 10.14.1
 
 ## Known Issues
 
