@@ -14,9 +14,20 @@ Copyright (C) techspider 2019. All rights reserved.
 #include "mpwdpwn.h"
 #include "strutils.h"
 #include "res.h"
+#include "console.h"
 #include "plist.h"
 
 int main(int argc, char* argv[]) { //TODO add command line arguments
+    if(argc > 1) { //User supplied arguments, check it
+        if(strcmp(argv[1], "help") == 0) {
+            fprintf(stdout, "\033[1;36mmpwdpwn version 1.0. Copyright (C) mr_chainman (techspider) 2019.\033[0m\nGeneral Usage: mpwdpwn [command] [options]\n\n\033[33mCommands:\033[0m\n   help             - View this help page.\n\n");
+            return 0;
+        } else {
+            fprintf(stderr, "%s", "\033[0;31mInvalid argument: rerun mpwdpwn with `help` for help.\033[0m\n");
+            return 1;
+        }
+    }
+
     //Display copyrights and APP_LOGO
 
     fprintf(stdout, "\033[0;35m%s\033[0m", APP_LOGO);
