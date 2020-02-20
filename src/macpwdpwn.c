@@ -1,8 +1,9 @@
 /*
-MPWDPWN (Mac Password Pwn) Account Unlocking Tool
+MACPWDPWN (Mac Password Pwn) Account Unlocking Tool
 For Mojave and above.
 
-Copyright (C) techspider 2019. All rights reserved.
+Copyright (C) techspider 2019-2020.
+Licensed under GNU GPL v3.
 */
 
 #include <stdio.h>
@@ -11,7 +12,7 @@ Copyright (C) techspider 2019. All rights reserved.
 #include <unistd.h>
 #include <dirent.h>
 #include "util.h"
-#include "mpwdpwn.h"
+#include "macpwdpwn.h"
 #include "strutils.h"
 #include "res.h"
 #include "console.h"
@@ -20,7 +21,7 @@ Copyright (C) techspider 2019. All rights reserved.
 int main(int argc, char* argv[]) { //TODO add command line arguments
     if(argc > 1) { //User supplied arguments, check it
         if(strcmp(argv[1], "help") == 0) {
-            fprintf(stdout, "\033[1;36mmpwdpwn version 1.0. Copyright (C) mr_chainman (techspider) 2019.\033[0m\nGeneral Usage: mpwdpwn [command] [options]\n\n\033[33mCommands:\033[0m\n   help             - View this help page.\n\n");
+            fprintf(stdout, "\033[1;36mmacpwdpwn version 1.0. Copyright (C) r3vl0d (R3V) 2020.\033[0m\nGeneral Usage: macpwdpwn [command] [options]\n\n\033[33mCommands:\033[0m\n   help             - View this help page.\n\n");
             return 0;
         } else {
             fprintf(stderr, "%s", "\033[0;31mInvalid argument: rerun mpwdpwn with `help` for help.\033[0m\n");
@@ -31,7 +32,7 @@ int main(int argc, char* argv[]) { //TODO add command line arguments
     //Display copyrights and APP_LOGO
 
     fprintf(stdout, "\033[0;35m%s\033[0m", APP_LOGO);
-    fprintf(stdout, "%s", "\033[1;36mmpwdpwn version 1.0. Copyright (C) mr_chainman (techspider) 2019.\033[0m\n\n");
+    fprintf(stdout, "%s", "\033[1;36mmacpwdpwn version 1.0. Copyright (C) r3vl0d (R3V) 2020.\033[0m\n\n");
 
     //Check if root access is available
 

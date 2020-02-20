@@ -1,9 +1,9 @@
-#Build script for mpwdpwn
+#Build script for macpwdpwn
 
 CC=gcc
 CCPARAMS=-Wall
 
-default: mpwdpwn
+default: macpwdpwn
 
 check:
 	$(shell [ ! -e obj ] && mkdir obj)
@@ -12,11 +12,11 @@ clean:
 	$(shell echo Cleaning up...)
 	$(shell rm -rf obj)
 
-mpwdpwn: check plist.o util.o strutils.o mpwdpwn.o
-	$(CC) obj/plist.o obj/util.o obj/strutils.o obj/mpwdpwn.o $(CCPARAMS) -o mpwdpwn
+macpwdpwn: check plist.o util.o strutils.o macpwdpwn.o
+	$(CC) obj/plist.o obj/util.o obj/strutils.o obj/macpwdpwn.o $(CCPARAMS) -o macpwdpwn
 
-mpwdpwn.o: src/mpwdpwn.h
-	$(CC) -c src/mpwdpwn.c -o obj/mpwdpwn.o
+macpwdpwn.o: src/macpwdpwn.h
+	$(CC) -c src/macpwdpwn.c -o obj/macpwdpwn.o
 
 strutils.o: src/strutils.h
 	$(CC) -c src/strutils.c -o obj/strutils.o
