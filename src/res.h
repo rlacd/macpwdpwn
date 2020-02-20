@@ -1,5 +1,5 @@
 /*
-MPWDPWN (Mac Password Pwn) Account Unlocking Tool
+MACPWDPWN (Mac Password Pwn) Account Unlocking Tool
 For Mojave and above.
 
 Copyright (C) techspider 2019. All rights reserved.
