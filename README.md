@@ -1,6 +1,6 @@
 # macpwdpwn
 
-Copyright (C) acdra1n 2019.
+Copyright (C) rlacd 2019 - 2021.
 
 macOS Account Unlocking Tool for Mojave and up.
 
