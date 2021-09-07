@@ -2,7 +2,7 @@
 MPWDPWN (Mac Password Pwn) Account Unlocking Tool
 For Mojave and above.
 
-Copyright (C) techspider 2019. All rights reserved.
+Copyright (C) rlacd 2021. All rights reserved.
 */
 
 #include "strutils.h"
